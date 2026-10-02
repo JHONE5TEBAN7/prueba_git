@@ -1,0 +1,93 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f0e8">
+  <title>Inicio | Django</title>
+  <link rel="stylesheet" href="{% static 'inicio/css/site.css' %}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{% url 'home' %}" aria-label="Django, inicio">
+      <span class="brand-mark">d.</span>
+      <span>tu proyecto</span>
+    </a>
+    <nav class="account-nav" aria-label="Cuenta">
+      {% if user.is_authenticated %}
+        {% if user.is_staff %}
+          <a class="nav-link" href="{% url 'admin:index' %}">Administración</a>
+        {% else %}
+          <a class="nav-link" href="{% url 'client_dashboard' %}">Mi cuenta</a>
+        {% endif %}
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button class="nav-link nav-button" type="submit">Salir</button>
+        </form>
+      {% else %}
+        <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+        <a class="nav-link nav-cta" href="{% url 'register' %}">Crear cuenta</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Una buena idea empieza aquí <span>— 01 / 01</span></p>
+        <h1 id="hero-title">Menos configuración.<br><em>Más creación.</em></h1>
+        <p class="intro">Esta es la página de inicio de tu proyecto. Ya tienes Django en marcha; ahora toca convertir esta base en algo tuyo.</p>
+        {% if user.is_authenticated %}
+          {% if user.is_staff %}
+            <a class="action" href="{% url 'admin:index' %}">Ir a administración <span aria-hidden="true">↗</span></a>
+          {% else %}
+            <a class="action" href="{% url 'client_dashboard' %}">Ir a mi cuenta <span aria-hidden="true">↗</span></a>
+          {% endif %}
+        {% else %}
+          <a class="action" href="{% url 'register' %}">Crear cuenta cliente <span aria-hidden="true">↗</span></a>
+        {% endif %}
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="sun"></div>
+        <span class="art-label">hecho para<br>lo que sigue</span>
+        <span class="art-index">DJ / 2026</span>
+      </div>
+    </section>
+
+    <section class="next-steps" aria-labelledby="steps-title">
+      <div class="section-heading">
+        <p class="eyebrow">Punto de partida</p>
+        <h2 id="steps-title">Tu siguiente movimiento</h2>
+      </div>
+      <div class="steps-grid">
+        <article class="step">
+          <span class="step-number">01</span>
+          <h3>Diseña la página</h3>
+          <p>Edita la plantilla y los estilos de la app <code>inicio</code>.</p>
+          <span class="step-path">inicio/templates · inicio/static</span>
+        </article>
+        <article class="step">
+          <span class="step-number">02</span>
+          <h3>Define tus datos</h3>
+          <p>Crea modelos en <code>inicio/models.py</code> y guárdalos en SQLite.</p>
+          <span class="step-path">python manage.py makemigrations</span>
+        </article>
+        <article class="step">
+          <span class="step-number">03</span>
+          <h3>Abre el admin</h3>
+          <p>Gestiona el contenido desde el panel que ya viene incluido.</p>
+          <span class="step-path">/admin/</span>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Construido con Django</span>
+    <span class="footer-mark">Siguiente: depende de ti <span aria-hidden="true">↗</span></span>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends "inicio/account_base.html" %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+  <section class="account-panel" aria-labelledby="account-title">
+    <p class="eyebrow">Acceso a tu espacio</p>
+    <h1 id="account-title">Qué bueno<br><em>verte de nuevo.</em></h1>
+    <p class="account-intro">Entra con tu usuario y contraseña.</p>
+    <form class="account-form" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      {{ form.as_p }}
+      <button class="action" type="submit">Iniciar sesión <span aria-hidden="true">→</span></button>
+    </form>
+    <p class="account-switch">¿Aún no tienes cuenta? <a href="{% url 'register' %}">Regístrate como cliente</a></p>
+  </section>
+{% endblock %}

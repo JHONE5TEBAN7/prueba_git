@@ -1,0 +1,15 @@
+{% extends "inicio/account_base.html" %}
+
+{% block title %}Mi cuenta{% endblock %}
+
+{% block content %}
+  <section class="account-panel dashboard-panel" aria-labelledby="account-title">
+    <p class="eyebrow">Área de cliente</p>
+    <h1 id="account-title">Hola,<br><em>{{ user.username }}.</em></h1>
+    <p class="account-intro">Has iniciado sesión correctamente. Este espacio ya está listo para tus funciones de cliente.</p>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button class="action" type="submit">Cerrar sesión <span aria-hidden="true">→</span></button>
+    </form>
+  </section>
+{% endblock %}

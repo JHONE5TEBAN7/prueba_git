@@ -1,0 +1,17 @@
+{% extends "inicio/account_base.html" %}
+
+{% block title %}Crear cuenta{% endblock %}
+
+{% block content %}
+  <section class="account-panel" aria-labelledby="account-title">
+    <p class="eyebrow">Una cuenta para empezar</p>
+    <h1 id="account-title">Entra en<br><em>la conversación.</em></h1>
+    <p class="account-intro">Crea tu cuenta de cliente. Los campos son obligatorios.</p>
+    <form class="account-form" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="action" type="submit">Crear cuenta <span aria-hidden="true">→</span></button>
+    </form>
+    <p class="account-switch">¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión</a></p>
+  </section>
+{% endblock %}
